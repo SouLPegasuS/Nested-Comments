@@ -1,6 +1,15 @@
 const User = require('../models/usersModel').User;
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const saltRounds = 8;
+const maxAge = 3*60*60;
+
+const createToken = (payload) => {
+    return jwt.sign(
+        payload, 
+        process.env.JWT_SECRET, 
+        { expiresIn: maxAge });
+}
 
 const registerUser = async (req, res, next) => {
     try {
@@ -30,10 +39,13 @@ const registerUser = async (req, res, next) => {
                         })
                         user.save()
                         .then((newUser) => {
+                            const payload = { id: newUser._id, username: newUser.username };
+                            const token = createToken(payload);
+                            res.cookie("JWToken", token, { httpOnly: true, maxAge: maxAge*1000 });
                             console.log(`user ${newUser.username} registered succesfully`); ////////////////
                             return res.status(201).json({
                                 status: 201,
-                                message: "user registered succesfully"
+                                message: "user registered succesfully",
                             });
                         })
                         .catch((err) => {
@@ -79,6 +91,11 @@ const loginUser = async (req, res, next) => {
                         });
                     }
                     else{
+                        const payload = { id: foundUser._id, username: foundUser.username };
+                        const token = createToken(payload);
+                        console.log(token); //////////////
+                        res.cookie("JWToken", token, { httpOnly: true, maxAge: maxAge*1000 });
+                        console.log(req.cookies.JWToken); /////////////
                         console.log(`user ${foundUser.username} logged in successfully`); //////////////////////
                         return res.status(201).json({
                             status: 201,
@@ -105,9 +122,14 @@ const loginUser = async (req, res, next) => {
     }
 }
 
+const logoutUser = async (req, res, next) => {
+    res.cookie("JWToken", "", {maxAge: 1});
+}
+
 module.exports = {
     loginUser,
-    registerUser
+    registerUser,
+    logoutUser
 }
 
 
