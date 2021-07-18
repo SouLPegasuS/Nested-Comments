@@ -1,5 +1,5 @@
-import { Schema, model } from 'mongoose';
-var commentSchema = Schema({
+const mongoose = require("mongoose");
+var commentSchema = mongoose.Schema({
     postId: {
         type: Number,
         default: 1
@@ -32,6 +32,6 @@ var commentSchema = Schema({
 
 
 
-const Comment = new model("Comment", commentSchema);
+const Comment = new mongoose.model("Comment", commentSchema);
 
 export default Comment;
