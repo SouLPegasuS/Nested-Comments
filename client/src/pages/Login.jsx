@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 
@@ -73,7 +72,6 @@ const Login = () => {
                 <p> {message} </p>
             </div>
             </div>
-            <Footer />
         </div> 
     )
 }

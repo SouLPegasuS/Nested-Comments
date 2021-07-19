@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 
@@ -62,7 +61,7 @@ const Register = () => {
             </div>
             <h4> OR </h4>
             <div>
-                <Link to="/">
+                <Link to="/login">
                     <span 
                         className="btn btn-dark mt-3"> 
                         Login
@@ -73,7 +72,6 @@ const Register = () => {
                 <p> {message} </p>
             </div>
             </div>
-            <Footer />
         </div> 
     )
 }
