@@ -9,7 +9,7 @@ var commentSchema = mongoose.Schema({
         default: 1
     },
     parentId: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         default: null
     },
     children: {
@@ -21,7 +21,7 @@ var commentSchema = mongoose.Schema({
         default: Date.now
     },
     author: {
-        id: Schema.Types.ObjectId,
+        id: mongoose.Schema.Types.ObjectId,
         name: String,
     },
     commentText: {
@@ -34,4 +34,6 @@ var commentSchema = mongoose.Schema({
 
 const Comment = new mongoose.model("Comment", commentSchema);
 
-export default Comment;
+module.exports = {
+    Comment
+}

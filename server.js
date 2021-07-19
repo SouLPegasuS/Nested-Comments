@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/user-routes");
-// const commentRoutes = require("./routes/comment-routes");
+const commentRoutes = require("./routes/comment-routes");
 
 const app = express();
 
@@ -16,7 +16,7 @@ mongoose.connect(DB, {useNewUrlParser: true, useUnifiedTopology: true, useCreate
 }).catch((err) => console.log(err));
 
 app.use("/users", userRoutes);
-// app.use("/comment", commentRoutes);
+app.use("/comments", commentRoutes);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));

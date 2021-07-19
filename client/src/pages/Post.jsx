@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { Card, CardHeader, CardContent, CardActions, Collapse, IconButton, Typography } from '@material-ui/core';
 import { Input, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,10 +27,33 @@ const useStyles = makeStyles((theme) => ({
 const Post = () => {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
+    const [comments, setComments] = React.useState([]);
+    const [isLogged, setIsLogged] = React.useState(false);
+    const [userData, setUserData] = React.useState({});
+    const [commentInput, setCommentInput] = React.useState("");
+
+    // useEffect(() => {
+    //     const check = async() => {
+    //       try{
+    //         const response = await axios.get("/users/auth");
+    //         if(response.data === "INVALID") {
+
+    //         }
+    //         else {
+    //           setItems(response.data);
+    //         }
+    //       }
+    //       catch(err){
+    //         console.log(err);
+    //       }
+    //     }
+    //     check();
+    // }, [])
+
 
     return (
         <div>

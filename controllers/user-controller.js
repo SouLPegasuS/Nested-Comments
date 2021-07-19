@@ -95,8 +95,8 @@ const loginUser = async (req, res, next) => {
                         const token = createToken(payload);
                         console.log(token); //////////////
                         res.cookie("JWToken", token, { httpOnly: true, maxAge: maxAge*1000 });
-                        console.log(req.cookies.JWToken); /////////////
                         console.log(`user ${foundUser.username} logged in successfully`); //////////////////////
+                        console.log(req.cookies.JWToken); /////////////
                         return res.status(201).json({
                             status: 201,
                             message: "user logged in successfully"

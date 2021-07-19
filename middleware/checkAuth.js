@@ -7,23 +7,13 @@ const checkAuth = (req, res, next) => {
         jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
             if(err){
                 res.cookie("JWToken", "", {maxAge: 1});
-                return res.status(401).json({
-                    status: 401,
-                    message: err
-                });
-            }      
-            else{
-                next();
-            }  
+            }
         })
     }
     else{
         res.cookie("JWToken", "", {maxAge: 1});
-        return res.status(401).json({
-            status: 401,
-            message: err
-        });
     }
+    next();
 }
 
 module.exports = { checkAuth }
