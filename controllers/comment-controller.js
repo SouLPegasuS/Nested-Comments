@@ -73,8 +73,34 @@ const updateComment = async (req, res, next) => {
     }
 }
 
+const deleteComment = async (req, res, next) => {
+    if(req.body.depth==1){
+        Comment.deleteOne({ _id: req.body.id })
+        .then(() => {
+            console.log("deleted comment"); //////////////
+            next();
+        })
+        .catch((err) => {
+            console.log(err); ////////////
+            next();
+        })
+    }
+    else{
+        Comment.updateOne({_id: req.body.parentId}, {$pull: {children: {_id: req.body.id}}}, function(err){
+            if(!err){
+                Comment.findById(req.body.parentId, function(err, foundComment){
+                    foundComment.save(function(){
+                        console.log("deleted reply");
+                        next();
+                    })
+                })
+            }
+        })
+    }
+}
+
 const getComments = async (req, res, next) => {
-    Comment.find({parentId: null}).sort({postedDate: 1}).exec()
+    Comment.find({parentId: null}).sort({postedDate: 1}).lean().exec()
     .then((baseComments) => {
         const DFS = (parent, comments) => {
             comments.push(parent);
@@ -110,6 +136,7 @@ const getComments = async (req, res, next) => {
 module.exports = {
     addComment,
     updateComment,
+    deleteComment,
     getComments
 }
 
