@@ -12,10 +12,6 @@ var commentSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         default: null
     },
-    children: {
-        type: [commentSchema],
-        default: []
-    },
     postedDate: {
         type: Date,
         default: Date.now

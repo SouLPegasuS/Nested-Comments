@@ -17,107 +17,63 @@ const addComment = async (req, res, next) => {
         data.depth = req.body.depth
     }
     const comment = new Comment(data);
-    if ('parentId' in req.body) {
-        Comment.findById(req.body.parentId, (err, parent) => {
-            if(err){
-                console.log(err); //////////////
-                next();
-            }
-            else{
-                parent.children.push(comment);
-                parent.save(function(){
-                    console.log("Added reply"); //////////
-                    next();
-                })
-            }
-        })
-    }
-    else{
-        comment.save()
-        .then(newComment => {
-            console.log("Added comment"); //////////
-            next();
-        })
-        .catch((err) => {
-            console.log(err) ///////////////////
-            next();
-        })
-    }
+    comment.save()
+    .then(newComment => {
+        console.log("Added comment"); //////////
+        next();
+    })
+    .catch((err) => {
+        console.log(err) ///////////////////
+        next();
+    })
 }
 
 const updateComment = async (req, res, next) => {
-    if(req.body.depth==1){
-        Comment.updateOne({_id: req.body.id}, {$set: {commentText: req.body.commentText}}, function(err){
-            if(!err){
-                Comment.findById(req.body.id, function(err, foundComment){
-                    foundComment.save(function(){
-                        console.log("updated comment"); //////////////
-                        next();
-                    })
-                })
-            }
-        })
-    }
-    else{
-        Comment.updateOne({_id: req.body.parentId, "children._id": req.body.id}, 
-        {$set: {"children.$.commentText": req.body.commentText}}, function(err){
-            if(!err){
-                Comment.findById(req.body.parentId, function(err, foundComment){
-                    foundComment.save(function(){
-                        console.log("updated comment"); //////////////
-                        next();
-                    })
-                })
-            }
-        })
-    }
-}
-
-const deleteComment = async (req, res, next) => {
-    if(req.body.depth==1){
-        Comment.deleteOne({ _id: req.body.id })
-        .then(() => {
-            console.log("deleted comment"); //////////////
-            next();
-        })
-        .catch((err) => {
-            console.log(err); ////////////
-            next();
-        })
-    }
-    else{
-        Comment.updateOne({_id: req.body.parentId}, {$pull: {children: {_id: req.body.id}}}, function(err){
-            if(!err){
-                Comment.findById(req.body.parentId, function(err, foundComment){
-                    foundComment.save(function(){
-                        console.log("deleted reply");
-                        next();
-                    })
-                })
-            }
-        })
-    }
+    Comment.updateOne({_id: req.body.id}, {$set: {commentText: req.body.commentText}}).exec()
+    .then(result => {
+        console.log("updated comment"); //////////////
+        next();
+    })
+    .catch(err => {
+        console.log(err) ///////////////////
+        next();
+    })
 }
 
 const getComments = async (req, res, next) => {
-    Comment.find({parentId: null}).sort({postedDate: 1}).lean().exec()
+    Comment.find({}).sort({postedDate: 1}).lean().exec()
     .then((baseComments) => {
-        const DFS = (parent, comments) => {
-            comments.push(parent);
-            parent.children.forEach(child => {
-                DFS(child, comments);
-            })
+
+        const DFS = (comment, threads) => {
+            for (var thread in threads){
+                parent = threads[thread];
+                if(thread.toString() === comment.parentId.toString()){
+                    parent.children[comment._id] = comment;
+                    return;
+                }
+                if(parent.children){
+                    DFS(comment, parent.children);
+                }
+            }
         }
-        let comments = [];
-        baseComments.forEach(element => {
-            DFS(element, comments);
+
+        let threads = {};
+        baseComments.forEach(comment => {
+            comment["children"] = {};
+            if(!comment.parentId){
+                threads[comment._id] = comment;
+            }
+            else{
+                DFS(comment, threads);   
+            }
         });
+
         if('JWToken' in req.cookies){
             jwt.verify(req.cookies.JWToken, process.env.JWT_SECRET, (err, payload) => {
                 if(!err){
                     return res.json({
                         user: payload,
-                        comments: comments
+                        comments: threads
                     })
                 }
             })
@@ -125,7 +81,7 @@ const getComments = async (req, res, next) => {
         res.cookie("JWToken", "", {maxAge: 1});
             return res.json({
             user: null,
-            comments: comments
+            comments: threads
         })
     })
     .catch((err) => {
@@ -136,7 +92,6 @@ const getComments = async (req, res, next) => {
 module.exports = {
     addComment,
     updateComment,
-    deleteComment,
     getComments
 }
 

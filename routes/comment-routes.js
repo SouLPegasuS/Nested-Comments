@@ -6,8 +6,6 @@ router.post("/add", commentCtrl.addComment, commentCtrl.getComments);
 
 router.post("/edit", commentCtrl.updateComment, commentCtrl.getComments);
 
-router.post("/delete", commentCtrl.deleteComment, commentCtrl.getComments);
-
 router.get("/get", commentCtrl.getComments);
 
 module.exports = router;
