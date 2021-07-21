@@ -39,7 +39,7 @@ const registerUser = async (req, res, next) => {
                         })
                         user.save()
                         .then((newUser) => {
-                            const payload = { id: newUser._id, username: newUser.username };
+                            const payload = { id: newUser._id, name: newUser.username };
                             const token = createToken(payload);
                             res.cookie("JWToken", token, { httpOnly: true, maxAge: maxAge*1000 });
                             console.log(`user ${newUser.username} registered succesfully`); ////////////////
@@ -91,7 +91,7 @@ const loginUser = async (req, res, next) => {
                         });
                     }
                     else{
-                        const payload = { id: foundUser._id, username: foundUser.username };
+                        const payload = { id: foundUser._id, name: foundUser.username };
                         const token = createToken(payload);
                         console.log(token); //////////////
                         res.cookie("JWToken", token, { httpOnly: true, maxAge: maxAge*1000 });

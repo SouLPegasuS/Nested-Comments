@@ -17,6 +17,7 @@ const addComment = async (req, res, next) => {
         data.depth = req.body.depth
     }
     const comment = new Comment(data);
+    console.log(comment); /////////////////////
     comment.save()
     .then(newComment => {
         console.log("Added comment"); //////////
@@ -29,12 +30,14 @@ const addComment = async (req, res, next) => {
 }
 
 const updateComment = async (req, res, next) => {
-    Comment.updateOne({_id: req.body.id}, {$set: {commentText: req.body.commentText}}).exec()
-    .then(result => {
+    const doc = await Comment.findOne({_id: req.body.id});
+    doc.commentText = req.body.commentText;
+    doc.save()
+    .then( () => {
         console.log("updated comment"); //////////////
         next();
     })
-    .catch(err => {
+    .catch( err => {
         console.log(err) ///////////////////
         next();
     })
@@ -78,11 +81,13 @@ const getComments = async (req, res, next) => {
                 }
             })
         }
-        res.cookie("JWToken", "", {maxAge: 1});
-            return res.json({
-            user: null,
-            comments: threads
-        })
+        else{
+            res.cookie("JWToken", "", {maxAge: 1});
+                return res.json({
+                user: null,
+                comments: threads
+        }   )
+        }
     })
     .catch((err) => {
         console.log(err) ///////////////////

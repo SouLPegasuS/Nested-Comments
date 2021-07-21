@@ -1,57 +1,128 @@
 import React, { useState, useEffect } from "react";
+import { Input, Button, Typography } from '@material-ui/core';
+import "./Comment.css";
 
 const Comment = (props) => {
+    const [editClicked, setEditClicked] = useState(false);
+    const [replyClicked, setReplyClicked] = useState(false);
+    const [replyInput, setReplyInput] = useState("");
+    const [editInput, setEditInput] = useState("");
 
+    const editComment = (commentText) => {
+        setEditClicked(true);
+        setEditInput(commentText);
+    }
 
-    // let comment = props.commentData;
+    const saveEdit = (comment) => {
+        let data = {
+            id: comment._id,
+            commentText: editInput
+        };
+        props.updateComment(data);
+        setEditClicked(false);
+        setEditInput("");
+    }
+    
+    const typeEdit = (e) => {
+        setEditInput(e.target.value);
+    }
+
+    const cancelEdit = () => {
+        setEditClicked(false);
+        setEditInput("");
+    }
+
+    const replyToComment = () => {
+        setReplyClicked(true);
+    }    
+
+    const typeReply = (e) => {
+        setReplyInput(e.target.value);
+    }
+
+    const cancelReply = () => {
+        setReplyClicked(false);
+        setReplyInput("");
+    }
+
+    const replySumbit = (parentComment) => {
+        props.addComment(true, parentComment, replyInput);
+        setReplyClicked(false);
+        setReplyInput("");
+    }
+
+    let comment = props.commentData;
     const date = new Date(comment.postedDate).toLocaleString();
     const replyActionsStyle = {backgroundColor: '#2196f3', margin: "5px 0 0 5px", lineHeight: "1"};
-    // const marginleft = (comment.depth-1)*10+'%';
+    const marginleft = (comment.depth-1)*10+'%';
     return (
         <div className='single-comment' style={{marginLeft: marginleft}}>
                 <div className="comment-header">
-                    <div style={{float: "left"}}>{comment.author.name}:</div><div style={{float: "right"}}>{date}</div>
+                <Typography style={{float: "left"}} variant="body1" component="p">{comment.author.name}:</Typography>
+                <Typography style={{float: "right"}} variant="body1" component="p">{date}</Typography>
                 </div>
                 <div className="comment-content">
-                    {this.state.editClicked ? 
-                        <Input value={this.state.comment} multiline rows="3" rowsMax="5" placeholder="Type your comment..." style={{width: "100%"}} onChange={this.typeComment}/>:
-                        <div className="comment-text">
-                            {comment.commentText}
-                        </div>
+                    {editClicked ? 
+                        <Input 
+                            value={editInput} 
+                            multiline rowsMin="1" maxRows="3" 
+                            placeholder="Type your comment..." 
+                            style={{width: "100%"}} 
+                            onChange={typeEdit}/>
+                        :
+                        <Typography className="comment-text" variant="body1" component="p">{comment.commentText}</Typography>
                     }
                     <div className="comment-actions">
-                        {comment.author.id === getDataFromCookie('userId') ?
+                        {props.isLogged && comment.author.id === props.userData.id ?
                             <Button
                                 size="small"
                                 color="primary"
                                 variant="contained"
                                 style={{backgroundColor: '#2196f3'}}
-                                onClick={this.state.editClicked ? () => this.saveEdit(comment) : () => this.editComment(comment.commentText)}
+                                onClick={editClicked ? () => saveEdit(comment) : () => editComment(comment.commentText)}
                             >
-                                {this.state.editClicked ? "Save" : "Edit"}
+                                {editClicked ? "Save" : "Edit"}
                             </Button> : ''
                         }
                         <Button
                             size="small"
-                            disabled={this.props.commentData.depth > 3}
+                            disabled={comment.depth > 5}
                             color="primary"
                             variant="contained"
                             style={{backgroundColor: '#2196f3'}}
-                            onClick={this.state.editClicked ? this.cancelEdit : this.replyToComment}
+                            onClick={editClicked ? cancelEdit : replyToComment}
                         >
-                            {this.state.editClicked ? "Cancel" : "Reply"}
+                            {editClicked ? "Cancel" : "Reply"}
                         </Button>
                     </div>
                 </div>
-                {this.state.replyClicked ? 
+                {replyClicked ? 
                 <div className="reply-input">
-                    <Input value={this.state.comment} multiline rows="2" rowsMax="3" disabled={!this.props.loggedIn} placeholder={!this.props.loggedIn?"Login to comment":"Type your reply..."} style={{width: "100%"}} onChange={this.typeComment}/>
+                    <Input 
+                        value={replyInput} 
+                        multiline rowsMin="1" maxRows="3" 
+                        disabled={!props.isLogged} 
+                        placeholder={!props.isLogged ? "Login to comment" : "Type your reply..."} 
+                        style={{width: "100%"}} 
+                        onChange={typeReply}/>
                     <div className="comment-action">
-                        <Button disabled={!this.props.loggedIn} size="small" color="primary" variant="contained" style={replyActionsStyle} onClick={() => this.replySumbit(comment)}>Submit</Button>
-                        <Button size="small" color="primary" variant="contained" style={replyActionsStyle} onClick={this.replyCancel}>Cancel</Button>
+                        <Button 
+                            disabled={!props.isLogged} 
+                            size="small" color="primary" 
+                            variant="contained" 
+                            style={replyActionsStyle} 
+                            onClick={() => replySumbit(comment)}>
+                            Submit
+                        </Button>
+                        <Button 
+                            size="small" color="primary" 
+                            variant="contained" 
+                            style={replyActionsStyle} 
+                            onClick={cancelReply}>
+                            Cancel
+                        </Button>
                     </div>
-                </div>:
-                ""}
+                </div> : ""}
             </div>
     )
 }
