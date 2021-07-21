@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Input, Button, Typography } from '@material-ui/core';
-import "./Comment.css";
 
 const Comment = (props) => {
     const [editClicked, setEditClicked] = useState(false);
