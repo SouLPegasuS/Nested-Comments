@@ -8,7 +8,7 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import Comment from "../components/Comment";
 
-const dummyPost = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aenean sed adipiscing diam donec adipiscing tristique. Pellentesque nec nam aliquam sem. Lectus nulla at volutpat diam. Sed nisi lacus sed viverra. Praesent elementum facilisis leo vel fringilla est ullamcorper eget nulla. Blandit volutpat maecenas volutpat blandit aliquam etiam erat. Tincidunt arcu non sodales neque sodales ut. Malesuada proin libero nunc consequat interdum varius sit. A diam maecenas sed enim ut sem viverra. In hac habitasse platea dictumst. Morbi tincidunt augue interdum velit euismod in pellentesque massa. Mattis rhoncus urna neque viverra justo nec. Lorem mollis aliquam ut porttitor leo a. Laoreet non curabitur gravida arcu ac tortor. Amet nulla facilisi morbi tempus iaculis urna id volutpat."
+const dummyPost = "This is a dummy post. First Register as a new user or login in your existing account to add comments or replies. Once logged in you can also edit comments and replies added by you. You will remain logged in for maximum 3 hours after which cookie containing your auth tokwn will expire. I have implemented Deapth First Traversal Graph algorithm to get comments from MongoDB and render in React component. Have fun :)"
 
 const useStyles = makeStyles((theme) => ({
     root: {
