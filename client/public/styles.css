@@ -1,22 +1,35 @@
 body {
-    background-color: #ffeaa7;
+    background-color: #000000;
     min-height: 70vh;
     padding: 4rem 3rem 4rem 3rem;
     box-sizing: border-box;
     /* display: flex; */
     justify-content: center;
     align-items: center;
-    color: hsl(198, 1%, 29%);
+    color: #ff0050;
     /* font-family: "Architects Daughter", cursive; */
     /* text-align: center; */
     font-size: 130%;
   }
   
   .navbar{
-    background-color: #fdcb6e;
+    background-color: #ff0050;
   }
 
   .user-container{
     margin-top: 100px;
   }
+
+  input{
+    background-color: #202020;
+    border-color: #000000;
+    color: white;
+  }
+
+  .btn-dark{
+    background-color: #ff0050;
+    color: #000000;
+  }
+
+  
   

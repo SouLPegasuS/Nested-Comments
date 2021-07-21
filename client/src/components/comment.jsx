@@ -53,13 +53,17 @@ const Comment = (props) => {
 
     let comment = props.commentData;
     const date = new Date(comment.postedDate).toLocaleString();
-    const replyActionsStyle = {backgroundColor: '#2196f3', margin: "5px 0 0 5px", lineHeight: "1"};
+    const replyActionsStyle = {backgroundColor: '#ff0050', margin: "5px 0 0 5px", lineHeight: "1", color: "black", marginBottom: "0.5rem"};
     const marginleft = (comment.depth-1)*10+'%';
     return (
         <div className='single-comment' style={{marginLeft: marginleft}}>
                 <div className="comment-header">
-                <Typography style={{float: "left"}} variant="body1" component="p">{comment.author.name}:</Typography>
-                <Typography style={{float: "right"}} variant="body1" component="p">{date}</Typography>
+                <Typography style={{float: "left", color: "#999999"}} variant="body1" component="p">
+                    {comment.author.name}:
+                </Typography>
+                <Typography style={{float: "right", color: "#999999"}} variant="body1" component="p">
+                    {date}
+                </Typography>
                 </div>
                 <div className="comment-content">
                     {editClicked ? 
@@ -67,10 +71,12 @@ const Comment = (props) => {
                             value={editInput} 
                             multiline rowsMin="1" maxRows="3" 
                             placeholder="Type your comment..." 
-                            style={{width: "100%"}} 
+                            style={{width: "100%", color: "white"}} 
                             onChange={typeEdit}/>
                         :
-                        <Typography className="comment-text" variant="body1" component="p">{comment.commentText}</Typography>
+                        <Typography className="comment-text" variant="body1" component="p">
+                            {comment.commentText}
+                        </Typography>
                     }
                     <div className="comment-actions">
                         {props.isLogged && comment.author.id === props.userData.id ?
@@ -78,7 +84,7 @@ const Comment = (props) => {
                                 size="small"
                                 color="primary"
                                 variant="contained"
-                                style={{backgroundColor: '#2196f3'}}
+                                style={{backgroundColor: '#ff0050', color: "black"}}
                                 onClick={editClicked ? () => saveEdit(comment) : () => editComment(comment.commentText)}
                             >
                                 {editClicked ? "Save" : "Edit"}
@@ -89,7 +95,7 @@ const Comment = (props) => {
                             disabled={comment.depth > 5}
                             color="primary"
                             variant="contained"
-                            style={{backgroundColor: '#2196f3'}}
+                            style={{backgroundColor: '#ff0050', color: "black"}}
                             onClick={editClicked ? cancelEdit : replyToComment}
                         >
                             {editClicked ? "Cancel" : "Reply"}
@@ -103,7 +109,7 @@ const Comment = (props) => {
                         multiline rowsMin="1" maxRows="3" 
                         disabled={!props.isLogged} 
                         placeholder={!props.isLogged ? "Login to comment" : "Type your reply..."} 
-                        style={{width: "100%"}} 
+                        style={{width: "100%", color: "white"}} 
                         onChange={typeReply}/>
                     <div className="comment-action">
                         <Button 

@@ -13,6 +13,8 @@ const dummyPost = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: "100%",
+        backgroundColor: "#181818",
+        color: "white"
     },
     expand: {
         transform: 'rotate(0deg)',
@@ -147,7 +149,7 @@ const Post = () => {
                         aria-expanded={expanded}
                         aria-label="show more"
                     >
-                        <Typography variant="body1" component="p">Comments</Typography>
+                        <Typography style={{color: "#999999"}} variant="body1" component="p">Comments</Typography>
                     </IconButton>
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -158,14 +160,14 @@ const Post = () => {
                                 disabled={!isLogged} 
                                 multiline rowsMin="1" maxRows="3" 
                                 placeholder={!isLogged ? "Login to comment" : "Type your comment..."} 
-                                style={{width: "100%"}} 
+                                style={{width: "100%", color: "white"}} 
                                 onChange={typeComment}/>
                             <Button 
                                 size="small"
                                 disabled={!isLogged}
                                 color="primary"
                                 variant="contained"
-                                style={{backgroundColor: '#2196f3', marginTop: "1%"}}
+                                style={{backgroundColor: '#ff0050', marginTop: "1%", color:"black"}}
                                 onClick={()=>addComment(false,null,null)}
                                 >
                                 Submit

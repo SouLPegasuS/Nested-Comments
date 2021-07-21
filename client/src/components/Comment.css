@@ -1,16 +1,16 @@
 
-  /* body {
-    background-color: #fafafa;
-  } */
   .comment-header {
     height: 25px;
+    padding: 0.5rem 0.5rem 0 0.5rem ;
   }
-  .comment-content {
-    border: 1px solid #00000059;
-  }
+
+  /* .comment-content {
+
+  } */
+
   .comment-text{
     padding: 1%;
-    font-size: 1.35em;
+    font-size: 1.5em;
   }
   .comment-actions button {
     margin-left: 0.5%;
@@ -21,5 +21,6 @@
     margin-left: 10%;
   }
   .single-comment {
-    margin: 0.5% 0;
+    margin: 0.75% 0;
+    border: 1px solid #404040;
   }
