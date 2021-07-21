@@ -8,7 +8,7 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import Comment from "../components/Comment";
 
-const dummyPost = "This is a dummy post. First Register as a new user or login in your existing account to add comments or replies. Once logged in you can also edit comments and replies added by you. You will remain logged in for maximum 3 hours after which cookie containing your auth tokwn will expire. I have implemented Deapth First Traversal Graph algorithm to get comments from MongoDB and render in React component. Have fun :)"
+const dummyPost = "This is a dummy post. First Register as a new user or login in your existing account to add comments or replies. Once logged in you can also edit comments and replies added by you. You will remain logged in for maximum 3 hours after which cookie containing your auth token will expire. I have implemented Depth First Traversal Graph algorithm to get comments from MongoDB and render in React component. Have fun :)"
 
 const useStyles = makeStyles((theme) => ({
     root: {
