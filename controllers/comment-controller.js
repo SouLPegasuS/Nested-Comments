@@ -17,10 +17,10 @@ const addComment = async (req, res, next) => {
         data.depth = req.body.depth
     }
     const comment = new Comment(data);
-    console.log(comment); /////////////////////
+    // console.log(comment); 
     comment.save()
     .then(newComment => {
-        console.log("Added comment"); //////////
+        // console.log("Added comment"); 
         next();
     })
     .catch((err) => {
@@ -34,7 +34,7 @@ const updateComment = async (req, res, next) => {
     doc.commentText = req.body.commentText;
     doc.save()
     .then( () => {
-        console.log("updated comment"); //////////////
+        // console.log("updated comment"); 
         next();
     })
     .catch( err => {

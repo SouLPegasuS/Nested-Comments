@@ -17,7 +17,7 @@ const registerUser = async (req, res, next) => {
         .exec()
         .then((foundUser) => {
             if(foundUser){
-                console.log("username already exists"); ///////////////////
+                // console.log("username already exists");
                 return res.status(201).json({
                     status: 409,
                     message: "username already exists"
@@ -42,7 +42,7 @@ const registerUser = async (req, res, next) => {
                             const payload = { id: newUser._id, name: newUser.username };
                             const token = createToken(payload);
                             res.cookie("JWToken", token, { httpOnly: true, maxAge: maxAge*1000 });
-                            console.log(`user ${newUser.username} registered succesfully`); ////////////////
+                            // console.log(`user ${newUser.username} registered succesfully`); 
                             return res.status(201).json({
                                 status: 201,
                                 message: "user registered succesfully",
@@ -84,7 +84,7 @@ const loginUser = async (req, res, next) => {
                         });
                     }
                     else if(!match){
-                        console.log("incorrect username or password"); //////////////////////
+                        // console.log("incorrect username or password"); 
                         return res.status(401).json({
                             status: 401,
                             message: "incorrect username or password"
@@ -93,10 +93,10 @@ const loginUser = async (req, res, next) => {
                     else{
                         const payload = { id: foundUser._id, name: foundUser.username };
                         const token = createToken(payload);
-                        console.log(token); //////////////
+                        // console.log(token); 
                         res.cookie("JWToken", token, { httpOnly: true, maxAge: maxAge*1000 });
-                        console.log(`user ${foundUser.username} logged in successfully`); //////////////////////
-                        console.log(req.cookies.JWToken); /////////////
+                        // console.log(`user ${foundUser.username} logged in successfully`); 
+                        // console.log(req.cookies.JWToken); 
                         return res.status(201).json({
                             status: 201,
                             message: "user logged in successfully"
@@ -105,7 +105,7 @@ const loginUser = async (req, res, next) => {
                 });
             }
             else{
-                console.log("user not registered"); //////////////////////
+                // console.log("user not registered"); 
                 return res.status(401).json({
                     status: 401,
                     message: "incorrect username or password"
@@ -132,10 +132,6 @@ module.exports = {
     registerUser,
     logoutUser
 }
-
-
-
-
 
 /*
 response status :-

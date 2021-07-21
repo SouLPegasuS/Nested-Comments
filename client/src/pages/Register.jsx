@@ -21,7 +21,7 @@ const Register = () => {
         }
         await axios.post("/users/register", data)
         .then( response => {
-            console.log(response.data); //////////
+            // console.log(response.data); 
             if(response.data.status===201){
                 window.location = "/";
             }

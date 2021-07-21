@@ -68,7 +68,7 @@ const Post = () => {
         const getData = async() => {
             await axios.get("/comments/get")
             .then( response => {
-                console.log(response.data); /////////////
+                // console.log(response.data); 
                 setUserData(response.data.user);
                 response.data.user===null ? setIsLogged(false) : setIsLogged(true);
                 getComments(response.data.comments);
@@ -100,11 +100,11 @@ const Post = () => {
             data.parentId = parentComment._id;
             data.depth = parentComment.depth+1;
         }
-        console.log(data); ////////////////
+        // console.log(data); 
 
         await axios.post("/comments/add", data)
         .then( response => {
-            console.log(response.data); /////////////
+            // console.log(response.data); 
             setUserData(response.data.user);
             response.data.user===null ? setIsLogged(false) : setIsLogged(true);
             getComments(response.data.comments);
@@ -117,7 +117,7 @@ const Post = () => {
     const updateComment = async (data) => {
         await axios.post("/comments/edit", data)
         .then( response => {
-            console.log(response.data); /////////////
+            // console.log(response.data); 
             setUserData(response.data.user);
             response.data.user===null ? setIsLogged(false) : setIsLogged(true);
             getComments(response.data.comments);
