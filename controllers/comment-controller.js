@@ -83,10 +83,10 @@ const getComments = async (req, res, next) => {
         }
         else{
             res.cookie("JWToken", "", {maxAge: 1});
-                return res.json({
+            return res.json({
                 user: null,
                 comments: threads
-        }   )
+            })
         }
     })
     .catch((err) => {

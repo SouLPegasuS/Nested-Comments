@@ -123,7 +123,8 @@ const loginUser = async (req, res, next) => {
 }
 
 const logoutUser = async (req, res, next) => {
-    res.cookie("JWToken", "", {maxAge: 1});
+    res.cookie("JWToken", "", {maxAge: 10});
+    res.redirect("/");
 }
 
 module.exports = {
