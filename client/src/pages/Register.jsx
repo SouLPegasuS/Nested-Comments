@@ -11,21 +11,33 @@ const Register = () => {
     const [message, setMessage] = useState("");
 
     const add = async () => {
-        console.log("posting");
-        try {
-            const response = await axios.post("/users/register", { username, password });
-            if (response.data === "registered user") {
+        if(username==="" || password===""){
+            setMessage("Username or password cannot be empty");
+            return;
+        }
+        let data = {
+            username: username,
+            password: password
+        }
+        await axios.post("/users/register", data)
+        .then( response => {
+            console.log(response.data); //////////
+            if(response.data.status===201){
                 window.location = "/";
             }
-            else {
-                if (response.data === "Username already exists") setMessage(response.data);
-                else if (response.data === "Please enter valid credentials") setMessage(response.data);
-                else setMessage("Please enter valid credentials");
+            else{
+                if(response.data.status===409){
+                    setMessage("Username is already registered");
+                }
+                else{
+                    setMessage("Incorrect username or password");
+                }
             }
-        }
-        catch (err) {
-            console.log(err);
-        }
+        })
+        .catch( err => {
+            console.log(err); ///////////////
+            setMessage("Incorrect username or password");
+        })
     }
 
     return (

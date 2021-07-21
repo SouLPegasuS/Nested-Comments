@@ -11,21 +11,27 @@ const Login = () => {
     const [message, setMessage] = useState("");
 
     const add = async () => {
-        console.log("posting");
-        try {
-            const response = await axios.post("/users/login", { username, password });
-            if (response.data === "logged in user") {
+        if(username==="" || password===""){
+            setMessage("Incorrect username or password");
+            return;
+        }
+        let data = {
+            username: username,
+            password: password
+        }
+        await axios.post("/users/login", data)
+        .then( response => {
+            if(response.data.status===201){
                 window.location = "/";
             }
-            else {
-                if (response.data === "User not registered") setMessage(response.data);
-                else if (response.data === "Please enter valid credentials") setMessage(response.data);
-                else setMessage("Please enter valid credentials");
+            else{
+                setMessage("Incorrect username or password");
             }
-        }
-        catch (err) {
-            console.log(err);
-        }
+        })
+        .catch( err => {
+            console.log(err); ///////////////
+            setMessage("Incorrect username or password");
+        })
     }
 
     return (

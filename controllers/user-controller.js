@@ -18,7 +18,7 @@ const registerUser = async (req, res, next) => {
         .then((foundUser) => {
             if(foundUser){
                 console.log("username already exists"); ///////////////////
-                return res.status(409).json({
+                return res.status(201).json({
                     status: 409,
                     message: "username already exists"
                 })
@@ -131,5 +131,17 @@ module.exports = {
     registerUser,
     logoutUser
 }
+
+
+
+
+
+/*
+response status :-
+201 : everything okay
+401 : incorrect authentication
+409 : conflict with current state of target resource (username already registered)
+500 : server error 
+*/
 
 
