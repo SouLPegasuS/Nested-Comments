@@ -53,7 +53,7 @@ const Comment = (props) => {
 
     let comment = props.commentData;
     const date = new Date(comment.postedDate).toLocaleString();
-    const replyActionsStyle = {backgroundColor: '#ff0050', margin: "5px 0 0 5px", lineHeight: "1", color: "black", marginBottom: "0.5rem"};
+    const replyActionsStyle = {backgroundColor: '#ff0050', margin: "5px 0 0 5px", lineHeight: "1", color: "#000000", marginBottom: "0.5rem"};
     const marginleft = (comment.depth-1)*10+'%';
     return (
         <div className='single-comment' style={{marginLeft: marginleft}}>
@@ -84,7 +84,7 @@ const Comment = (props) => {
                                 size="small"
                                 color="primary"
                                 variant="contained"
-                                style={{backgroundColor: '#ff0050', color: "black"}}
+                                style={{backgroundColor: '#ff0050', color: "#000000"}}
                                 onClick={editClicked ? () => saveEdit(comment) : () => editComment(comment.commentText)}
                             >
                                 {editClicked ? "Save" : "Edit"}
@@ -92,10 +92,10 @@ const Comment = (props) => {
                         }
                         <Button
                             size="small"
-                            disabled={comment.depth > 5}
+                            disabled={comment.depth > (editClicked ? 6 : 5)}
                             color="primary"
                             variant="contained"
-                            style={{backgroundColor: '#ff0050', color: "black"}}
+                            style={{backgroundColor: '#ff0050', color: "#000000"}}
                             onClick={editClicked ? cancelEdit : replyToComment}
                         >
                             {editClicked ? "Cancel" : "Reply"}
