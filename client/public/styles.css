@@ -11,6 +11,10 @@ body {
     /* text-align: center; */
     font-size: 130%;
   }
+
+  *, ::after, ::before {
+    box-sizing: content-box;
+  }
   
   .navbar{
     background-color: #ff0050;
