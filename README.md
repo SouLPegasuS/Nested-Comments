@@ -9,5 +9,5 @@
 
 ### `How to use`
 
-*First Register as a new user or login in your existing account to add comments or replies. Click on the 'comments' button in bottom right corner of the post to open/render the comment section. Once logged in apart from adding comments and replying you can also edit comments and replies added by you. You will remain logged in for maximum 3 hours after which cookie containing your auth token will expire and you will get logged out.
+* First Register as a new user or login in your existing account to add comments or replies. Click on the 'comments' button in bottom right corner of the post to open/render the comment section. Once logged in apart from adding comments and replying you can also edit comments and replies added by you. You will remain logged in for maximum 3 hours after which cookie containing your auth token will expire and you will get logged out.
 
