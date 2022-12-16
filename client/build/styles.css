@@ -1,0 +1,62 @@
+body {
+    background-color: #000000;
+    min-height: 70vh;
+    padding: 4rem 3rem 4rem 3rem;
+    box-sizing: border-box;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    color: #ff0050;
+    font-family: 'Montserrat Alternates', sans-serif;
+    /* text-align: center; */
+    font-size: 130%;
+  }
+  
+  .navbar{
+    background-color: #ff0050;
+  }
+
+  .user-container{
+    margin-top: 100px;
+  }
+
+  input{
+    background-color: #202020;
+    border-color: #000000;
+    color: white;
+  }
+
+  .btn-dark{
+    background-color: #ff0050;
+    color: #000000;
+  }
+
+  
+  .comment-header {
+    height: 25px;
+    padding: 0.5rem 0.5rem 0 0.5rem ;
+  }
+
+  /* .comment-content {
+
+  } */
+
+  .comment-text{
+    padding: 1%;
+    font-size: 1.5em;
+  }
+  .comment-actions button {
+    margin-left: 0.5%;
+    margin-bottom: 0.5%;
+    line-height: 1
+  }
+  .reply-input {
+    margin-left: 10%;
+  }
+  .single-comment {
+    margin: 0.75% 0;
+    border: 1px solid #404040;
+  }
+
+  
+  
