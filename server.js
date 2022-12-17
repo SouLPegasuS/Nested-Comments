@@ -4,9 +4,11 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/user-routes");
 const commentRoutes = require("./routes/comment-routes");
+const cors = require('cors');  
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
